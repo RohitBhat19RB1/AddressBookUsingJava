@@ -1,5 +1,8 @@
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.Iterator;
+import java.util.Collection;
+
 public class AddressBook {
     //Declaring HasMap to store all contact details
     HashMap<String, ContactDetails> contactList = new HashMap<String, ContactDetails>();

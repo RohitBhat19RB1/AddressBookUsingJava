@@ -91,4 +91,14 @@ public class ContactDetails {
                 ", emailId='" + emailId + '\'' +
                 '}';
     }
-}
+
+    @Override
+    public boolean equals(Object obj) {
+            if(obj instanceof ContactDetails){
+                ContactDetails contactDetails = (ContactDetails) obj;
+
+                return fName.equals(contactDetails.fName);
+            }
+            return false;
+        }
+    }
