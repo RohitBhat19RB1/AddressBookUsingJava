@@ -116,8 +116,8 @@ public class AddressBook {
     }
     // This function will be used to ask the user choice
     public void getUserChoice()
-    {
-        while (true){
+    {       boolean isTerminate = false;
+        while (!isTerminate){
             System.out.println("1: For add new contact \n" +
                     "2: For update existing contact \n" +
                     "3: For print contact list \n" +
@@ -137,7 +137,7 @@ public class AddressBook {
                     deleteContact();
                     break;
                 case 0:
-                    System.exit(0);
+                    isTerminate = true;
                     break;
                 default:
                     System.out.println("Please select valid option");
