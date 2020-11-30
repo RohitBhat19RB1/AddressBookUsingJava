@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class AddressBook {
     //Declaring HasMap to store all contact details
@@ -122,18 +123,12 @@ public class AddressBook {
         String city = scanner.next();
         System.out.println("Enter state name : ");
         String state = scanner.next();
-        System.out.println("Iterate over HashMap Keys and Values");
-
-        for (ContactDetails allDetail : contactList.values()) {
-            System.out.println("fetched city" +allDetail.getCity() + "fetched state" + allDetail.getState());
-            if(allDetail.getCity().contains(city) || allDetail.getState().contains(state))
-            {
-                System.out.println("from condition"+allDetail);
-            }
-            else {
-                System.out.println("value not fount");
-            }
-        }
+        Map<String, ContactDetails> filterDetail = contactList.entrySet()
+                .stream()
+                .filter(map -> map.getValue().getState().contains(state))
+                .filter(map -> map.getValue().getCity().contains(city))
+                .collect(Collectors.toMap(map -> map.getKey(), map -> map.getValue()));
+        System.out.println(filterDetail);
     }
 
     public void countByCityOrState(){
@@ -148,20 +143,18 @@ public class AddressBook {
             System.out.println("fetched city" +allDetail.getCity() + "fetched state" + allDetail.getState());
             if(allDetail.getCity().contains(city) || allDetail.getState().contains(state))
             {
-                count = count +1;
-            }
-            else {
-                System.out.println("value not fount");
+             count = count + 1;
             }
         }
+        System.out.println(count);
 
-        System.out.println("Number of address belong to same city or state are : " +count);
     }
 
     // This function will be used to ask the user choice
     public void getUserChoice()
     {       boolean isTerminate = false;
         while (!isTerminate){
+
             System.out.println("1: For add new contact \n" +
                     "2: For update existing contact \n" +
                     "3: For print contact list \n" +
