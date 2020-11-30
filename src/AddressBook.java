@@ -1,7 +1,4 @@
-import java.util.HashMap;
-import java.util.Scanner;
-import java.util.Iterator;
-import java.util.Collection;
+import java.util.*;
 
 public class AddressBook {
     //Declaring HasMap to store all contact details
@@ -117,6 +114,27 @@ public class AddressBook {
     {
         System.out.println(contactList);
     }
+
+    public void searchByCityorState(){
+
+        System.out.println("Enter city name : ");
+        String city = scanner.next();
+        System.out.println("Enter state name : ");
+        String state = scanner.next();
+        System.out.println("Iterate over HashMap Keys and Values");
+
+        for (ContactDetails i : contactList.values()) {
+            System.out.println(i);
+            if(i.getCity() == city || i.getState() == state)
+            {
+                System.out.println("from condition"+i);
+            }
+            else {
+                System.out.println("value not fount");
+            }
+        }
+    }
+
     // This function will be used to ask the user choice
     public void getUserChoice()
     {       boolean isTerminate = false;
@@ -125,6 +143,7 @@ public class AddressBook {
                     "2: For update existing contact \n" +
                     "3: For print contact list \n" +
                     "4: For delete contact \n" +
+                    "5: For search by city name or state : \n" +
                     "0: For terminate the program");
             int selectedOption = scanner.nextInt();
             switch (selectedOption){
@@ -138,6 +157,9 @@ public class AddressBook {
                     break;
                 case 4:
                     deleteContact();
+                    break;
+                case 5:
+                    searchByCityorState();
                     break;
                 case 0:
                     isTerminate = true;
