@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -132,21 +133,24 @@ public class AddressBook {
     }
 
     public void countByCityOrState(){
-        int count=0;
         System.out.println("Enter city name : ");
         String city = scanner.next();
         System.out.println("Enter state name : ");
         String state = scanner.next();
-        System.out.println("Iterate over HashMap Keys and Values");
+        Map<ContactDetails, Long> filteredCountContact = contactList.values()
+                .stream()
+                .filter(map -> map.getState().contains(state))
+                .filter(map -> map.getCity().contains(city))
+                .collect(Collectors.groupingBy(v -> v, Collectors.counting()));
+        System.out.println(filteredCountContact);
+    }
 
-        for (ContactDetails allDetail : contactList.values()) {
-            System.out.println("fetched city" +allDetail.getCity() + "fetched state" + allDetail.getState());
-            if(allDetail.getCity().contains(city) || allDetail.getState().contains(state))
-            {
-             count = count + 1;
-            }
-        }
-        System.out.println(count);
+    public void shortContactListByFName()
+    {
+        List <ContactDetails> valueList=new ArrayList<ContactDetails>(contactList.values());
+
+        valueList.sort((ContactDetails s1, ContactDetails s2)->s1.getfName().compareTo(s2.getfName()));
+        valueList.forEach((s)->System.out.println(s));
 
     }
 
@@ -161,6 +165,7 @@ public class AddressBook {
                     "4: For delete contact \n" +
                     "5: For search by city name or state : \n" +
                     "6: For count number of address belong to same city or state \n" +
+                    "7: For sort by first name \n" +
                     "0: For terminate the program");
             int selectedOption = scanner.nextInt();
             switch (selectedOption){
@@ -180,6 +185,9 @@ public class AddressBook {
                     break;
                 case 6:
                     countByCityOrState();
+                    break;
+                case 7:
+                    shortContactListByFName();
                     break;
                 case 0:
                     isTerminate = true;
