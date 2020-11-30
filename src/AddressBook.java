@@ -110,12 +110,13 @@ public class AddressBook {
     }
 
     //This method is used to print the contact details
-    public void printAllDetails()
-    {
-        System.out.println(contactList);
+    public void printAllDetails() {
+        for (ContactDetails allContacts : contactList.values()) {
+            System.out.println(allContacts);
+        }
     }
 
-    public void searchByCityorState(){
+    public void searchByCityOrState(){
 
         System.out.println("Enter city name : ");
         String city = scanner.next();
@@ -123,16 +124,38 @@ public class AddressBook {
         String state = scanner.next();
         System.out.println("Iterate over HashMap Keys and Values");
 
-        for (ContactDetails i : contactList.values()) {
-            System.out.println(i);
-            if(i.getCity() == city || i.getState() == state)
+        for (ContactDetails allDetail : contactList.values()) {
+            System.out.println("fetched city" +allDetail.getCity() + "fetched state" + allDetail.getState());
+            if(allDetail.getCity().contains(city) || allDetail.getState().contains(state))
             {
-                System.out.println("from condition"+i);
+                System.out.println("from condition"+allDetail);
             }
             else {
                 System.out.println("value not fount");
             }
         }
+    }
+
+    public void countByCityOrState(){
+        int count=0;
+        System.out.println("Enter city name : ");
+        String city = scanner.next();
+        System.out.println("Enter state name : ");
+        String state = scanner.next();
+        System.out.println("Iterate over HashMap Keys and Values");
+
+        for (ContactDetails allDetail : contactList.values()) {
+            System.out.println("fetched city" +allDetail.getCity() + "fetched state" + allDetail.getState());
+            if(allDetail.getCity().contains(city) || allDetail.getState().contains(state))
+            {
+                count = count +1;
+            }
+            else {
+                System.out.println("value not fount");
+            }
+        }
+
+        System.out.println("Number of address belong to same city or state are : " +count);
     }
 
     // This function will be used to ask the user choice
@@ -144,6 +167,7 @@ public class AddressBook {
                     "3: For print contact list \n" +
                     "4: For delete contact \n" +
                     "5: For search by city name or state : \n" +
+                    "6: For count number of address belong to same city or state \n" +
                     "0: For terminate the program");
             int selectedOption = scanner.nextInt();
             switch (selectedOption){
@@ -159,7 +183,10 @@ public class AddressBook {
                     deleteContact();
                     break;
                 case 5:
-                    searchByCityorState();
+                    searchByCityOrState();
+                    break;
+                case 6:
+                    countByCityOrState();
                     break;
                 case 0:
                     isTerminate = true;
