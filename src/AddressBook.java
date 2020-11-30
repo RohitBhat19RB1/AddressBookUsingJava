@@ -1,10 +1,10 @@
-import javax.swing.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class AddressBook {
     //Declaring HasMap to store all contact details
     HashMap<String, ContactDetails> contactList = new HashMap<String, ContactDetails>();
+    List <ContactDetails> valueList=new ArrayList<ContactDetails>(contactList.values());
     Scanner scanner = new Scanner(System.in);
     public ContactDetails getDetailsFromUser()
     {
@@ -145,12 +145,23 @@ public class AddressBook {
         System.out.println(filteredCountContact);
     }
 
-    public void shortContactListByFName()
-    {
-        List <ContactDetails> valueList=new ArrayList<ContactDetails>(contactList.values());
+    public void shortContactListByFName() {
+        valueList.sort((ContactDetails obj1, ContactDetails obj2) -> obj1.getfName().compareTo(obj2.getfName()));
+        valueList.forEach((shortedContact)->System.out.println(shortedContact));
+    }
 
-        valueList.sort((ContactDetails s1, ContactDetails s2)->s1.getfName().compareTo(s2.getfName()));
-        valueList.forEach((s)->System.out.println(s));
+    public void shortContactListByCity() {
+        valueList.sort((ContactDetails obj1, ContactDetails obj2) -> obj1.getCity().compareTo(obj2.getCity()));
+        valueList.forEach((shortedContact) -> System.out.println(shortedContact));
+    }
+
+    public void shortContactListByState() {
+        valueList.sort((ContactDetails obj1, ContactDetails obj2) -> obj1.getState().compareTo(obj2.getState()));
+        valueList.forEach((shortedContact) -> System.out.println(shortedContact));
+    }
+    public void shortContactListByZipCode() {
+        valueList.sort((ContactDetails obj1, ContactDetails obj2) -> obj1.getZip() - obj2.getZip());
+        valueList.forEach((shortedList) -> System.out.println(shortedList));
 
     }
 
@@ -166,6 +177,9 @@ public class AddressBook {
                     "5: For search by city name or state : \n" +
                     "6: For count number of address belong to same city or state \n" +
                     "7: For sort by first name \n" +
+                    "8: For sort by state \n" +
+                    "9: For sort by city \n" +
+                    "10: For sort by zipCode" +
                     "0: For terminate the program");
             int selectedOption = scanner.nextInt();
             switch (selectedOption){
@@ -188,6 +202,17 @@ public class AddressBook {
                     break;
                 case 7:
                     shortContactListByFName();
+                    break;
+                case 8:
+                    shortContactListByState();
+                    break;
+
+                case 9:
+                    shortContactListByCity();
+                    break;
+
+                case 10:
+                    shortContactListByZipCode();
                     break;
                 case 0:
                     isTerminate = true;
